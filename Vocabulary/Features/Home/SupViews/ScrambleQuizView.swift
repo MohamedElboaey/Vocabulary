@@ -1,10 +1,3 @@
-//
-//  ScrambleQuizView.swift
-//  Vocabulary
-//
-//  Created by Mohamed Elboraey on 28/07/2026.
-//
-
 
 import SwiftUI
 
@@ -16,14 +9,20 @@ struct ScrambleQuizView: View {
     @State private var placedIndices: [Int] = []
     @State private var revealed = false
     @State private var isCorrect = false
+    
+    private var tileWidth: CGFloat {
+        let spacing: CGFloat = 6
+        let horizontalPadding = AppTheme.Metrics.horizontalPadding * 2
+        let availableWidth = UIScreen.main.bounds.width - horizontalPadding
+
+        let width = (availableWidth - CGFloat(quiz.scrambledLetters.count - 1) * spacing)
+            / CGFloat(quiz.scrambledLetters.count)
+
+        return min(width, 40)
+    }
 
     var body: some View {
         VStack(spacing: 24) {
-            Capsule()
-                .fill(AppTheme.Colors.textSecondary.opacity(0.4))
-                .frame(width: 40, height: 5)
-                .padding(.top, 10)
-
             VStack(spacing: 8) {
                 Image(systemName: "textformat.abc")
                     .font(.system(size: 28))
@@ -57,36 +56,41 @@ struct ScrambleQuizView: View {
             Spacer(minLength: 0)
         }
         .padding(.horizontal, AppTheme.Metrics.horizontalPadding)
+        .padding(.top, 30)
         .background(AppTheme.Colors.background.ignoresSafeArea())
         .animation(.easeInOut(duration: 0.2), value: revealed)
         .animation(.easeInOut(duration: 0.15), value: placedIndices)
     }
 
     private var answerRow: some View {
-        HStack(spacing: 8) {
-            ForEach(quiz.scrambledLetters.indices, id: \.self) { slot in
-                letterTile(
-                    character: slot < placedIndices.count ? quiz.scrambledLetters[placedIndices[slot]] : nil,
-                    isFilled: slot < placedIndices.count
-                ) {
-                    guard slot < placedIndices.count else { return }
-                    removeFromSlot(slot)
+            HStack(spacing: 6) {
+                ForEach(quiz.scrambledLetters.indices, id: \.self) { slot in
+                    letterTile(
+                        character: slot < placedIndices.count ? quiz.scrambledLetters[placedIndices[slot]] : nil,
+                        isFilled: slot < placedIndices.count
+                    )
+                    {
+                        guard slot < placedIndices.count else { return }
+                        removeFromSlot(slot)
+                    }
+                    .frame(width: tileWidth, height: 48)
                 }
             }
+            .frame(maxWidth: .infinity)
         }
-    }
 
     private var letterPool: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: 6) {
             ForEach(quiz.scrambledLetters.indices, id: \.self) { index in
                 if !placedIndices.contains(index) {
                     letterTile(character: quiz.scrambledLetters[index], isFilled: false) {
                         place(index)
                     }
+                    .frame(width: tileWidth, height: 48)
                 }
             }
         }
-        .frame(minHeight: 52)
+        .frame(maxWidth: .infinity, minHeight: 52)
     }
 
     private func letterTile(character: Character?, isFilled: Bool, action: @escaping () -> Void) -> some View {

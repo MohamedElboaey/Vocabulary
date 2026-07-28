@@ -19,7 +19,7 @@ extension RecallQuiz: QuizBuilder {
 
     static func build(from session: LearningSession) -> RecallQuiz? {
 
-        guard let target = session.recentWords.randomElement() else {
+        guard let target = session.randomReviewWord() else {
             return nil
         }
 

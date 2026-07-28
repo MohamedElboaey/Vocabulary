@@ -1,18 +1,6 @@
-//
-//  OnboardingChoice.swift
-//  Vocabulary
-//
-//  Created by Mohamed Elboraey on 24/07/2026.
-//
-
 
 import Foundation
 
-/// Common shape for every single-tap onboarding question (age, gender,
-/// referral source, learning pace, habit helper, ...). Conforming here
-/// once, instead of duplicating a `SelectableRow`-driving view per
-/// question, is what lets `OnboardingChoiceListView` render all of them
-/// from one implementation — see that file for the payoff.
 protocol OnboardingChoice: Identifiable, Hashable where ID == String {
     var displayTitle: String { get }
     var displaySubtitle: String? { get }

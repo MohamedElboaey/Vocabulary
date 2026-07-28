@@ -1,27 +1,16 @@
-//
-//  WordDetailSheetView.swift
-//  Vocabulary
-//
-//  Created by Mohamed Elboraey on 25/07/2026.
-//
-
 
 import SwiftUI
 
-/// Presented from the (i) button on the home feed. The card itself only
-/// shows term/phonetic/definition (matching the reference app); part of
-/// speech, the example sentence, synonyms, and difficulty live here so
-/// they're not lost from the data model, just moved off the main card.
 struct WordDetailSheetView: View {
     let word: Word
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Capsule()
-                .fill(AppTheme.Colors.textSecondary.opacity(0.4))
-                .frame(width: 40, height: 5)
-                .frame(maxWidth: .infinity)
-                .padding(.top, 10)
+//            Capsule()
+//                .fill(AppTheme.Colors.textSecondary.opacity(0.4))
+//                .frame(width: 40, height: 5)
+//                .frame(maxWidth: .infinity)
+//                .padding(.top, 10)
 
             HStack(alignment: .firstTextBaseline) {
                 Text(word.term)
@@ -73,6 +62,7 @@ struct WordDetailSheetView: View {
             Spacer()
         }
         .padding(.horizontal, AppTheme.Metrics.horizontalPadding)
+        .padding(.top, 30)
         .background(AppTheme.Colors.background.ignoresSafeArea())
     }
 }

@@ -1,3 +1,6 @@
+
+import SwiftUI
+
 struct OnboardingProgressBar: View {
     let progress: Double
 

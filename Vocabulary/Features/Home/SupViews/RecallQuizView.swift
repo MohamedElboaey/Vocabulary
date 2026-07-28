@@ -1,8 +1,5 @@
 import SwiftUI
 
-/// Presented as a sheet after every `quizTriggerInterval` "known" swipes.
-/// Fill-in-the-blank against the word's own example sentence — reuses
-/// content already on the card, so it costs nothing extra to author words.
 struct RecallQuizView: View {
     let quiz: RecallQuiz
     let onAnswer: (Word, Bool) -> Void
@@ -13,11 +10,6 @@ struct RecallQuizView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Capsule()
-                .fill(AppTheme.Colors.textSecondary.opacity(0.4))
-                .frame(width: 40, height: 5)
-                .padding(.top, 10)
-
             VStack(spacing: 8) {
                 Image(systemName: "bolt.fill")
                     .font(.system(size: 28))
@@ -59,6 +51,7 @@ struct RecallQuizView: View {
             Spacer(minLength: 0)
         }
         .padding(.horizontal, AppTheme.Metrics.horizontalPadding)
+        .padding(.top, 30)
         .background(AppTheme.Colors.background.ignoresSafeArea())
         .animation(.easeInOut(duration: 0.2), value: revealed)
     }

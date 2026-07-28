@@ -1,11 +1,7 @@
-//
-//  WordRepository.swift
-//  Vocabulary
-//
-//  Created by Mohamed Elboraey on 23/07/2026.
-//
 
+import Foundation
 
-protocol WordRepository {
-    func fetchWords() async throws -> [Word]
+protocol WordRepositoryProtocol {
+    func fetchDeck(for level: LearningPace?, categories: Set<WordCategory>) -> [Word]
+    func updateMastery(wordID: UUID, to state: MasteryState)
 }

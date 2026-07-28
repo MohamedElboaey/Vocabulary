@@ -16,8 +16,8 @@ struct ThemePickerView: View {
                 ForEach(ReadingTheme.allCases) { theme in
                     ThemeSwatch(
                         theme: theme,
-                        isSelected: viewModel.theme == theme,
-                        action: { viewModel.select(theme, into: \.theme) }
+                        isSelected: viewModel.state.theme == theme,
+                        action: { viewModel.selectTheme(theme) }
                     )
                 }
             }

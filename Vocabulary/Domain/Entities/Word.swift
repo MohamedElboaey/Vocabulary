@@ -1,8 +1,5 @@
 import Foundation
 
-/// How the learner last responded to a word. Drives both the "personal
-/// touch" mastery feature and (in a real backend) a spaced-repetition
-/// scheduler — deliberately modeled now so that swap-in is additive later.
 enum MasteryState: String, Codable {
     case new
     case learning

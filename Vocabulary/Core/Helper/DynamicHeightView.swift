@@ -1,3 +1,12 @@
+//
+//  DynamicHeightView.swift
+//  Vocabulary
+//
+//  Created by Mohamed Elboraey on 28/07/2026.
+//
+
+import SwiftUI
+
 struct DynamicHeightView<Content: View>: View {
     @Binding var height: CGFloat
     let content: Content

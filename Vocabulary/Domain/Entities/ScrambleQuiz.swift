@@ -11,7 +11,7 @@ extension ScrambleQuiz: QuizBuilder {
 
     static func build(from session: LearningSession) -> ScrambleQuiz? {
 
-        guard let target = session.recentWords.randomElement() else {
+        guard let target = session.randomReviewWord() else {
             return nil
         }
 

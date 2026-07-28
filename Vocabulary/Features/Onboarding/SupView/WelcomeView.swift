@@ -1,41 +1,91 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @State private var animateIn = false
+
+    @State private var animateContent = false
+    @State private var animateBackground = false
 
     var body: some View {
+
         ZStack {
-            ThemedBackground(theme: .forestCabin)
+
+            AppTheme.Colors.background
+                    .ignoresSafeArea()
+
+                RadialGradient(
+                    colors: [
+                        AppTheme.Colors.accent.opacity(0.18),
+                        .clear
+                    ],
+                    center: .top,
+                    startRadius: 20,
+                    endRadius: 450
+                )
                 .ignoresSafeArea()
-                .overlay(Color.black.opacity(0.25))
 
-            VStack(spacing: 20) {
-                Spacer()
 
-                Text("Welcome to Vocabulary")
-                    .font(AppTheme.Typography.largeTitle)
-                    .foregroundStyle(.white)
-                    .multilineTextAlignment(.center)
-                    .opacity(animateIn ? 1 : 0)
-                    .offset(y: animateIn ? 0 : 12)
+            VStack {
 
                 Spacer()
 
-                VStack(spacing: 6) {
-                    Image(systemName: "chevron.up")
-                        .font(.system(size: 16, weight: .semibold))
-                    Text("Swipe up")
-                        .font(AppTheme.Typography.subheadline)
+                VStack(spacing: 28) {
+
+                    ZStack {
+
+                        Circle()
+                            .fill(AppTheme.Colors.surface)
+                            .frame(width: 110, height: 110)
+
+                        Image(systemName: "book.pages.fill")
+                            .font(.system(size: 44))
+                            .foregroundStyle(AppTheme.Colors.accent)
+                    }
+                    .shadow(color: .black.opacity(0.12),
+                            radius: 25,
+                            y: 12)
+                    .scaleEffect(animateContent ? 1.05 : 0.95)
+
+                    VStack(spacing: 14) {
+
+                        Text("Welcome to\nVocabulary")
+                            .font(.system(
+                                size: 42,
+                                weight: .bold,
+                                design: .serif
+                            ))
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(AppTheme.Colors.textPrimary)
+
+                        Text("""
+Learn beautiful English words.
+Build a daily habit.
+Become more confident.
+""")
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(AppTheme.Colors.textSecondary)
+
+                    }
+                    .offset(y: animateContent ? 0 : 24)
+
                 }
-                .foregroundStyle(.white.opacity(0.85))
-                .opacity(animateIn ? 1 : 0)
-                .padding(.bottom, 12)
+
+                Spacer()
             }
-            .padding(.horizontal, AppTheme.Metrics.horizontalPadding)
+            .padding(.horizontal, 32)
+
         }
+        .animation(
+            .easeInOut(duration: 3)
+                .repeatForever(autoreverses: true),
+            value: animateContent
+        )
         .onAppear {
-            withAnimation(.spring(response: 0.6, dampingFraction: 0.75).delay(0.05)) {
-                animateIn = true
+            withAnimation(
+                .spring(response: 0.7,
+                        dampingFraction: 0.75)
+            ) {
+                animateContent = true
             }
         }
     }
